@@ -1,2 +1,2 @@
 # RedditCloneAP1403
-AP Project - Simple Functional Reddit Clone - By Me
+AP Project - Simple Functional Reddit Clone - Maven Based
