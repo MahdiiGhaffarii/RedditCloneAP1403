@@ -5,7 +5,6 @@ import javax.swing.*;
 
 public class RedditAP
 {
-    
     public static void main(String[] args) 
     {
         Splash();
@@ -33,9 +32,12 @@ public class RedditAP
         Splash_Frame.setVisible(false);
     }
 
+    public static JFrame Login_Frame;
+    
     public static void Login()
     {
-
+        Login_Frame = Create_JFrame(new Login_Panel(),"Reddit - Login",550,550,1);
+        Login_Frame.setVisible(true);
     }
 
     public static JFrame Create_JFrame(JPanel Panel, String Title, int Width, int Height, int IsSplash)

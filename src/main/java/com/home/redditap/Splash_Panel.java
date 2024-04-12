@@ -33,6 +33,8 @@ public class Splash_Panel extends javax.swing.JPanel {
         Gradient = new javax.swing.JLabel();
 
         setLayout(null);
+
+        Progress.setForeground(new java.awt.Color(153, 255, 153));
         add(Progress);
         Progress.setBounds(26, 260, 390, 50);
 
@@ -40,9 +42,9 @@ public class Splash_Panel extends javax.swing.JPanel {
         AP1403.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         AP1403.setForeground(new java.awt.Color(255, 255, 255));
         AP1403.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        AP1403.setText("AP - 1403");
+        AP1403.setText("AP - 1403 - By Mahdi Ghaffari");
         add(AP1403);
-        AP1403.setBounds(0, 410, 440, 40);
+        AP1403.setBounds(0, 410, 450, 40);
 
         Percentage.setBackground(new java.awt.Color(255, 255, 255));
         Percentage.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -52,11 +54,11 @@ public class Splash_Panel extends javax.swing.JPanel {
         add(Percentage);
         Percentage.setBounds(27, 310, 390, 100);
 
-        RedditLogo.setIcon(new javax.swing.ImageIcon("C:\\Users\\GreatMahdi\\Desktop\\RedditLogoo.png")); // NOI18N
+        RedditLogo.setIcon(new javax.swing.ImageIcon("C:\\Users\\GreatMahdi\\Desktop\\RedditCloneAP1403-Develop\\RedditCloneAP1403-Develop\\Pictures\\RedditLogoo.png")); // NOI18N
         add(RedditLogo);
         RedditLogo.setBounds(10, 0, 440, 300);
 
-        Gradient.setIcon(new javax.swing.ImageIcon("C:\\Users\\GreatMahdi\\Desktop\\Gradient.png")); // NOI18N
+        Gradient.setIcon(new javax.swing.ImageIcon("C:\\Users\\GreatMahdi\\Desktop\\RedditCloneAP1403-Develop\\RedditCloneAP1403-Develop\\Pictures\\Gradient.png")); // NOI18N
         add(Gradient);
         Gradient.setBounds(-10, -10, 470, 470);
     }// </editor-fold>//GEN-END:initComponents
