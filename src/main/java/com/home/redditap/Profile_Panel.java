@@ -4,6 +4,8 @@
  */
 package com.home.redditap;
 
+import javax.swing.*;
+
 /**
  *
  * @author GreatMahdi
@@ -13,11 +15,17 @@ public class Profile_Panel extends javax.swing.JPanel {
     /**
      * Creates new form Profile_Panel
      */
+    public static JFrame MessagesFrame;
+    public static JFrame FollowListFrame;
+    public static JFrame SearchFrame;
+    public static JFrame YourPostsFrame;
+    
+    
     public Profile_Panel() {
         initComponents();
         WelcomeDear.setText("Welcome Dear " + " " + Login_Panel.LoggedInUsername);
     }
-
+      
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,7 +48,7 @@ public class Profile_Panel extends javax.swing.JPanel {
         setLayout(null);
 
         YourPosts.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        YourPosts.setText("Your Post");
+        YourPosts.setText("Your Posts");
         YourPosts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 YourPostsActionPerformed(evt);
@@ -119,29 +127,36 @@ public class Profile_Panel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void MessagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MessagesActionPerformed
-        // TODO add your handling code here:
+        MessagesFrame = RedditAP.Create_JFrame(new Messages_Panel(),"Reddit - "+ Login_Panel.LoggedInUsername+ " Messages List",700,700,1);
+        Login_Panel.Profile_Frame.setVisible(false);
+        Profile_Panel.MessagesFrame.setVisible(true);                                         
     }//GEN-LAST:event_MessagesActionPerformed
 
     private void FollowingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FollowingsActionPerformed
-        // TODO add your handling code here:
+        FollowListFrame = RedditAP.Create_JFrame(new FollowList_Panel(),"Reddit - "+ Login_Panel.LoggedInUsername+ " Following And Followers List",700,700,1);
+        Login_Panel.Profile_Frame.setVisible(false);
+        Profile_Panel.FollowListFrame.setVisible(true);
     }//GEN-LAST:event_FollowingsActionPerformed
 
     private void SearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchButtonActionPerformed
-        // TODO add your handling code here:
+          SearchFrame = RedditAP.Create_JFrame(new Search_Panel(),"Reddit - Search",700,700,1);
+        Login_Panel.Profile_Frame.setVisible(false);
+        Profile_Panel.SearchFrame.setVisible(true);  
     }//GEN-LAST:event_SearchButtonActionPerformed
 
     private void YourPostsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YourPostsActionPerformed
-        // TODO add your handling code here:
+        YourPostsFrame = RedditAP.Create_JFrame(new YourPosts_Panel(),"Reddit - Search",700,700,1);
+        Login_Panel.Profile_Frame.setVisible(false);
+        Profile_Panel.YourPostsFrame.setVisible(true); 
     }//GEN-LAST:event_YourPostsActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Followings;
     private javax.swing.JLabel Gradient;
-    private javax.swing.JButton Messages;
+    public static javax.swing.JButton Messages;
     private javax.swing.JButton SearchButton;
     private javax.swing.JLabel WelcomeDear;
-    private javax.swing.JButton YourPosts;
+    public static javax.swing.JButton YourPosts;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
