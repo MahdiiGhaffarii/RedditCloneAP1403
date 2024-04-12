@@ -180,7 +180,11 @@ public class Login_Panel extends javax.swing.JPanel {
     }//GEN-LAST:event_LoginButtonActionPerformed
 
     private void SignupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignupButtonActionPerformed
-        // TODO add your handling code here:
+        SignUP_Frame = RedditAP.Create_JFrame(new Signup_Panel(),"Reddit - Signup",550,550,1);
+        SignUP_Frame.setVisible(true);
+        RedditAP.Login_Frame.setVisible(false);
+        
+        
     }//GEN-LAST:event_SignupButtonActionPerformed
 
     private void ShowPassBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowPassBoxActionPerformed
