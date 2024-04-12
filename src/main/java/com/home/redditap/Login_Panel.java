@@ -162,8 +162,8 @@ public class Login_Panel extends javax.swing.JPanel {
                 if  (ResultSet1.next())
                 {
                     LoggedInUsername = UserNameFeild.getText();
-                    //Profile_Frame = Create_JFrame (new Profile_Panel(), ("Reddit - " + LoggedInUsername + "Profile") , 550,550,1);
-                    //Profile_Frame.setVisible(true);
+                    Profile_Frame = RedditAP.Create_JFrame (new Profile_Panel(), ("Reddit - " + LoggedInUsername + " Profile") , 700,700,1);
+                    Profile_Frame.setVisible(true);
                     RedditAP.Login_Frame.setVisible(false);
                 }
                 else
@@ -183,7 +183,6 @@ public class Login_Panel extends javax.swing.JPanel {
         SignUP_Frame = RedditAP.Create_JFrame(new Signup_Panel(),"Reddit - Signup",550,550,1);
         SignUP_Frame.setVisible(true);
         RedditAP.Login_Frame.setVisible(false);
-        
         
     }//GEN-LAST:event_SignupButtonActionPerformed
 

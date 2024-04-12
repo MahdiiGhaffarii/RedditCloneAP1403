@@ -196,14 +196,6 @@ public class Signup_Panel extends javax.swing.JPanel {
     }//GEN-LAST:event_MailTextFeildActionPerformed
 
     private void AgreeCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgreeCheckBoxActionPerformed
-         //if (AgreeCheckBox.isSelected())
-        //{ 
-            
-        //}
-         //else
-         //{
-          //   JOptionPane.showMessageDialog(null,"Please Checkout The Terms And Conditions !");
-         //}
     }//GEN-LAST:event_AgreeCheckBoxActionPerformed
 
     private void SignUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUpButtonActionPerformed
@@ -217,15 +209,17 @@ public class Signup_Panel extends javax.swing.JPanel {
             {
               Class.forName("com.mysql.jdbc.Driver");
                 Connection Connection1 = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/redditproject","root","");
-                String SQLQuery1 = "SELECT * FROM users_information WHERE user_name = ?";
+                String SQLQuery1 = "SELECT * FROM users_information WHERE user_name = ? AND user_email = ?";
                 PreparedStatement PreparedStatement1 = (PreparedStatement) Connection1.prepareStatement(SQLQuery1);
                 PreparedStatement1.setString(1, UserNameTextFeild.getText());
+                PreparedStatement1.setString(2, MailTextFeild.getText());
                           ResultSet ResultSet1 = PreparedStatement1.executeQuery();   
                           int i = 0;
                           if (ResultSet1.next())
                           {
                               i++;
                           }
+                          
                           
                           if (i == 0)
                           {
@@ -238,11 +232,15 @@ public class Signup_Panel extends javax.swing.JPanel {
                               PreparedStatement2.setString(5, MailTextFeild.getText());
                               PreparedStatement2.executeUpdate();
                               JOptionPane.showMessageDialog(null, "Welcome To Reddit Dear " + UserNameTextFeild.getText());                            
+                              Login_Panel.SignUP_Frame.setVisible(false);
+                                RedditAP.Login_Frame.setVisible(true);
                           }
                           else
                           {
-                              JOptionPane.showMessageDialog(null, "Username Is Already Used ! Try Again !");
-                          }
+                              JOptionPane.showMessageDialog(null, "Username Or Email Are Already Used ! Try Again !");
+                                                            RedditAP.Login_Frame.setVisible(false);
+                              Login_Panel.SignUP_Frame.setVisible(true);
+                                     }
 }
                           
                           catch (Exception e)
