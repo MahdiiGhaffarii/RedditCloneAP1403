@@ -35,7 +35,9 @@ I create this project based on a localhost and with SQL queries.
 
 ![Model](https://github.com/MahdiiGhaffarii/RedditCloneAP1403/blob/main/SQL.png)
 
+I used SQL and Swing and ... java libraries and dependecies .
 
+You can contact me with this email address : Mahdig840@gmail.com
 
 
 
