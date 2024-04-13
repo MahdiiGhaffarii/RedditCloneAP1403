@@ -31,6 +31,11 @@ Users can follow and unfollow each other and also sending private messages (Like
 
 ![Model](https://github.com/MahdiiGhaffarii/RedditCloneAP1403/blob/main/Messaging.png)
 
+I create this project based on a localhost and with SQL queries.
+
+![Model](https://github.com/MahdiiGhaffarii/RedditCloneAP1403/blob/main/SQL.png)
+
+
 
 
 
