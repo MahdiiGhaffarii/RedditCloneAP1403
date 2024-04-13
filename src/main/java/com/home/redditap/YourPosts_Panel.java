@@ -1,13 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.home.redditap;
 
+
+import com.home.redditap.Login_Panel;
 import static com.home.redditap.Login_Panel.LoggedInUsername;
 import static com.home.redditap.Login_Panel.Profile_Frame;
+import static com.home.redditap.Profile_Panel.ShowPostDetails_JFrame;
 import static com.home.redditap.Profile_Panel.YourPostsFrame;
+import com.home.redditap.RedditAP;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,32 +31,30 @@ public class YourPosts_Panel extends javax.swing.JPanel {
             
     public YourPosts_Panel() {
         initComponents();
-               
-            try {
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection Connection1 = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/redditproject","root","");
-        String SQLQuery1 = "SELECT caption, share_date FROM posts_information WHERE user_name = ? ORDER BY share_date DESC";
-        PreparedStatement PreparedStatement1 = (PreparedStatement) Connection1.prepareStatement(SQLQuery1);
-        PreparedStatement1.setString(1, Login_Panel.LoggedInUsername);
-        ResultSet ResultSet1 = PreparedStatement1.executeQuery();   
+        RefreshAPP();
+}
 
-         DefaultTableModel model = (DefaultTableModel)YourPostTable.getModel();
-        model.setRowCount(0);
-        
-        while (ResultSet1.next())
-        {
-            model.addRow(new Object[] { ResultSet1.getString("caption"), ResultSet1.getString("share_date") });
+        public void RefreshAPP() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection Connection1 = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/redditproject","root","");
+            String SQLQuery1 = "SELECT caption, share_date FROM posts_information WHERE user_name = ? ORDER BY share_date DESC";
+            PreparedStatement PreparedStatement1 = (PreparedStatement) Connection1.prepareStatement(SQLQuery1);
+            PreparedStatement1.setString(1, Login_Panel.LoggedInUsername);
+
+            ResultSet ResultSet1 = PreparedStatement1.executeQuery();   
+
+            while (YourPostTable.getRowCount() > 0) {
+                ((DefaultTableModel)YourPostTable.getModel()).removeRow(0);
+            }
+
+            while (ResultSet1.next()) {
+                ((DefaultTableModel)YourPostTable.getModel()).addRow(new Object [] { ResultSet1.getString("caption"),ResultSet1.getString("share_date")});
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
-    } catch(SQLException e) 
-    {
-        JOptionPane.showMessageDialog(null,e);
-        
-    } catch(ClassNotFoundException e) {
-        JOptionPane.showMessageDialog(null, e);
     }
-    }
-     
-
 
 
     /**
@@ -154,41 +153,57 @@ public class YourPosts_Panel extends javax.swing.JPanel {
     }//GEN-LAST:event_BackToProfileButtonActionPerformed
 
     private void NewPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewPostActionPerformed
-        // TODO add your handling code here:
+        RefreshAPP();
+        CreatePost_JFrame = RedditAP.Create_JFrame(new CreatePost_Panel(), "Reddit - New Post",700,700,1);
+        Profile_Panel.YourPostsFrame.setVisible(false);
+        CreatePost_JFrame.setVisible(true);
     }//GEN-LAST:event_NewPostActionPerformed
 
     private void DeletePostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeletePostActionPerformed
-           DefaultTableModel model = (DefaultTableModel)YourPostTable.getModel();
-           int Selected_Row = YourPostTable.getSelectedRow();
-           if (Selected_Row != -1)
-           {
-               String date = model.getValueAt(Selected_Row, 1).toString();
-     
-        try {
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection Connection1 = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/redditproject","root","");
-        String SQLQuery1 = "DELETE FROM posts_information WHERE user_name = ? and share_date = ?";
-        PreparedStatement PreparedStatement1 = (PreparedStatement) Connection1.prepareStatement(SQLQuery1);
-        PreparedStatement1.setString(1, Login_Panel.LoggedInUsername);
-        PreparedStatement1.setString(2, date);
-        PreparedStatement1.executeUpdate();
-        Connection1.close();
 
-    } catch(SQLException e) 
-    {
-        JOptionPane.showMessageDialog(null,e); 
-    }
-        catch(ClassNotFoundException e)
-                {
-        JOptionPane.showMessageDialog(null, e);
-    }
-        YourPostsFrame.setVisible(false);
-       Login_Panel.Profile_Frame.setVisible(true);
+        DefaultTableModel model = (DefaultTableModel)YourPostTable.getModel();
+        int SelectedRow = YourPostTable.getSelectedRow();
+        if (SelectedRow != -1)
+        {
+            String selectedDate = model.getValueAt(SelectedRow, 1).toString();
+        
+        try
+            {
+              Class.forName("com.mysql.jdbc.Driver");
+                Connection Connection1 = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/redditproject","root","");
+                String SQLQuery1 = "DELETE FROM posts_information WHERE user_name = ? AND share_date = ?";
+                PreparedStatement PreparedStatement1 = (PreparedStatement) Connection1.prepareStatement(SQLQuery1);
+                PreparedStatement1.setString(1, Login_Panel.LoggedInUsername);
+                PreparedStatement1.setString(2, selectedDate);
+                PreparedStatement1.executeUpdate();
+                Connection1.close();
+                
+                 Profile_Panel.YourPostsFrame.setVisible(false);
+                 
+                             RefreshAPP();
+              
+         YourPostsFrame = RedditAP.Create_JFrame(new YourPosts_Panel(),"Reddit - YourPosts",700,700,1);
+               Profile_Panel.YourPostsFrame.setVisible(true);                                     
+                 
+                          
+            }
+        
+                          catch (Exception e)
+                                  {
+                                  JOptionPane.showMessageDialog(null,e);
+                                  }
+        }
     }//GEN-LAST:event_DeletePostActionPerformed
-    }
+   
     private void YourPostTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_YourPostTableMouseClicked
-        CreatePost_JFrame  = RedditAP.Create_JFrame (new CreatePost_Panel(), ("Reddit - " + LoggedInUsername + " Creating Post") , 700,700,1);
-                    CreatePost_JFrame.setVisible(true);
+DefaultTableModel model = (DefaultTableModel)YourPostTable.getModel(); int SelectedRow = YourPostTable.getSelectedRow();
+String Post = model.getValueAt(SelectedRow, 0).toString();
+String Date = model.getValueAt(SelectedRow, 1).toString();
+
+        ShowPostDetails_JFrame = RedditAP.Create_JFrame(new ShowPostDetails_Panel(Login_Panel.LoggedInUsername,Post,Date),"Reddit - Post Details",700,700,1);
+        Login_Panel.Profile_Frame.setVisible(false);
+        Profile_Panel.ShowPostDetails_JFrame.setVisible(true);   
+
     }//GEN-LAST:event_YourPostTableMouseClicked
 
 
@@ -199,6 +214,6 @@ public class YourPosts_Panel extends javax.swing.JPanel {
     private javax.swing.JScrollPane MessageListPane;
     private javax.swing.JLabel MiniLogo;
     public static javax.swing.JButton NewPost;
-    private javax.swing.JTable YourPostTable;
+    public static javax.swing.JTable YourPostTable;
     // End of variables declaration//GEN-END:variables
 }

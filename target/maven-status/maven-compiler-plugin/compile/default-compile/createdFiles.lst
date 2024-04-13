@@ -4,13 +4,17 @@ com\home\redditap\Profile_Panel$4.class
 com\home\redditap\Profile_Panel$2.class
 com\home\redditap\YourPosts_Panel$3.class
 com\home\redditap\Login_Panel$2.class
+com\home\redditap\ShowPostDetails_Panel$3.class
 com\home\redditap\FollowList_Panel$1.class
 com\home\redditap\Search_Panel.class
 com\home\redditap\Signup_Panel$2.class
 com\home\redditap\Login_Panel$5.class
 com\home\redditap\Signup_Panel$7.class
+com\home\redditap\ShowPostDetails_Panel$4.class
 com\home\redditap\Profile_Panel$5.class
+com\home\redditap\ShowPostDetails_Panel$1.class
 com\home\redditap\Messages_Panel$2.class
+com\home\redditap\ShowPostDetails_Panel.class
 com\home\redditap\Profile_Panel.class
 com\home\redditap\Search_Panel$2.class
 com\home\redditap\Signup_Panel$4.class
@@ -18,6 +22,7 @@ com\home\redditap\Signup_Panel.class
 com\home\redditap\CreatePost_Panel.class
 com\home\redditap\RedditAP.class
 com\home\redditap\Login_Panel$3.class
+com\home\redditap\ShowPostDetails_Panel$2.class
 com\home\redditap\YourPosts_Panel$2.class
 com\home\redditap\FollowList_Panel$2.class
 com\home\redditap\CreatePost_Panel$2.class
@@ -33,6 +38,7 @@ com\home\redditap\Messages_Panel$1.class
 com\home\redditap\Profile_Panel$1.class
 com\home\redditap\Search_Panel$1.class
 com\home\redditap\Login_Panel$1.class
+com\home\redditap\Profile_Panel$6.class
 com\home\redditap\YourPosts_Panel$5.class
 com\home\redditap\CreatePost_Panel$1.class
 com\home\redditap\Login_Panel$4.class

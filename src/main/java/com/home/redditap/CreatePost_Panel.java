@@ -9,6 +9,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -40,7 +43,7 @@ public class CreatePost_Panel extends javax.swing.JPanel {
 
         setLayout(null);
 
-        CaptionFeild.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        CaptionFeild.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         CaptionFeild.setForeground(new java.awt.Color(0, 0, 0));
         add(CaptionFeild);
         CaptionFeild.setBounds(91, 140, 500, 340);
@@ -89,6 +92,17 @@ public class CreatePost_Panel extends javax.swing.JPanel {
                 
                 PreparedStatement1.executeUpdate();
                 JOptionPane.showMessageDialog(null,"Your Post Shared Sucessfully");
+  
+                DefaultTableModel model = (DefaultTableModel) YourPosts_Panel.YourPostTable.getModel();
+                model.addRow(new Object[]{CaptionFeild.getText(), getCurrentDate()});
+                
+                              
+        YourPosts_Panel yourPostsPanel = new YourPosts_Panel();
+        yourPostsPanel.RefreshAPP();
+
+        YourPosts_Panel.CreatePost_JFrame.setVisible(false);
+        Profile_Panel.YourPostsFrame.setVisible(true);
+        Connection1.close();
                             }//GEN-LAST:event_SharePostActionPerformed
    catch (Exception e)
    {
@@ -98,7 +112,10 @@ public class CreatePost_Panel extends javax.swing.JPanel {
     private void BackToProfileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackToProfileButtonActionPerformed
         Login_Panel.Profile_Frame.setVisible(true);
     }//GEN-LAST:event_BackToProfileButtonActionPerformed
-
+    private String getCurrentDate() {
+        SimpleDateFormat SimpleDate1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return SimpleDate1.format(new Date());
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton BackToProfileButton;
     private javax.swing.JTextField CaptionFeild;

@@ -4,6 +4,13 @@
  */
 package com.home.redditap;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author GreatMahdi
@@ -15,8 +22,8 @@ public class FollowList_Panel extends javax.swing.JPanel {
      */
     public FollowList_Panel() {
         initComponents();
+        
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

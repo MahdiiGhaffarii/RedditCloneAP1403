@@ -4,7 +4,10 @@
  */
 package com.home.redditap;
 
+import static com.home.redditap.YourPosts_Panel.YourPostTable;
+import java.sql.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,13 +22,33 @@ public class Profile_Panel extends javax.swing.JPanel {
     public static JFrame FollowListFrame;
     public static JFrame SearchFrame;
     public static JFrame YourPostsFrame;
-    
-    
-    public Profile_Panel() {
-        initComponents();
-        WelcomeDear.setText("Welcome Dear " + " " + Login_Panel.LoggedInUsername);
+        public static JFrame ShowPostDetails_JFrame;
+        
+       
+       public Profile_Panel() {
+    initComponents();
+    WelcomeDear.setText("Welcome Dear " + " " + Login_Panel.LoggedInUsername);
+
+    try {
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection Connection1 = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/redditproject", "root", "");
+        String SQLQuery1 = "SELECT caption, user_name, share_date FROM posts_information";
+        PreparedStatement PreparedStatement1 = (PreparedStatement) Connection1.prepareStatement(SQLQuery1);
+        ResultSet ResultSet1 = PreparedStatement1.executeQuery();
+ 
+        DefaultTableModel tableModel = (DefaultTableModel) ProfileTable.getModel();
+        while (tableModel.getRowCount() > 0) {
+            tableModel.removeRow(0);
+        }
+
+        while (ResultSet1.next()) {
+            tableModel.addRow(new Object[]{ResultSet1.getString("caption"), ResultSet1.getString("user_name"), ResultSet1.getString("share_date")});
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e);
     }
-      
+}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,7 +63,7 @@ public class Profile_Panel extends javax.swing.JPanel {
         Messages = new javax.swing.JButton();
         Followings = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        ProfileTable = new javax.swing.JTable();
         WelcomeDear = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         Gradient = new javax.swing.JLabel();
@@ -87,26 +110,31 @@ public class Profile_Panel extends javax.swing.JPanel {
         add(Followings);
         Followings.setBounds(50, 590, 170, 50);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        ProfileTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Post Caption", "User", "Sharing Date", "Likes"
+                "Post Caption", "User", "Sharing Date"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        ProfileTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ProfileTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(ProfileTable);
 
         add(jScrollPane1);
         jScrollPane1.setBounds(120, 140, 452, 402);
@@ -145,20 +173,30 @@ public class Profile_Panel extends javax.swing.JPanel {
     }//GEN-LAST:event_SearchButtonActionPerformed
 
     private void YourPostsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YourPostsActionPerformed
-        YourPostsFrame = RedditAP.Create_JFrame(new YourPosts_Panel(),"Reddit - Search",700,700,1);
+        YourPostsFrame = RedditAP.Create_JFrame(new YourPosts_Panel(),"Reddit - YourPosts",700,700,1);
         Login_Panel.Profile_Frame.setVisible(false);
         Profile_Panel.YourPostsFrame.setVisible(true); 
     }//GEN-LAST:event_YourPostsActionPerformed
+
+    private void ProfileTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProfileTableMouseClicked
+    DefaultTableModel model = (DefaultTableModel)ProfileTable.getModel();
+        int SelectedRow = ProfileTable.getSelectedRow();
+        String post = model.getValueAt(SelectedRow, 0).toString();
+        String date = model.getValueAt(SelectedRow, 1).toString();
+        ShowPostDetails_JFrame = RedditAP.Create_JFrame(new ShowPostDetails_Panel(Login_Panel.LoggedInUsername,post,date),"Reddit - Post Details",700,700,1);
+        Login_Panel.Profile_Frame.setVisible(false);
+        Profile_Panel.ShowPostDetails_JFrame.setVisible(true);   
+    }//GEN-LAST:event_ProfileTableMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Followings;
     private javax.swing.JLabel Gradient;
     public static javax.swing.JButton Messages;
+    private javax.swing.JTable ProfileTable;
     private javax.swing.JButton SearchButton;
     private javax.swing.JLabel WelcomeDear;
     public static javax.swing.JButton YourPosts;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
