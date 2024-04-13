@@ -6,7 +6,7 @@ AP Project - Simple Functional Reddit Clone - Maven Based
 
 This application is a form of a social network like Reddit or Instagram.
 In this app , users can signing up and have contact with each other easily.
-
+![Model](https://github.com/MahdiiGhaffarii/RedditCloneAP1403/blob/main/SignUP.png)
 
 
 User can access to last shared posts from another users in profile panel.
